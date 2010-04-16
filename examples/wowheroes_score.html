@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Example Wow-heroes widget</title>
+	
+	<style type="text/css">
+	body {
+		color: #FFFFFF;
+		background-color: #000000;
+	}
+	.class_6 {color: #C41F3B;}
+	.class_11 {color: #FF7D0A;}
+	.class_3 {color: #ABD473;}
+	.class_8 {color: #69CCF0;}
+	.class_2 {color: #F58CBA;}
+	.class_5 {color: #FFFFFF;}
+	.class_4 {color: #FFF569;}
+	.class_7 {color: #2459FF;}
+	.class_9 {color: #9482C9;}
+	.class_1 {color: #C79C6E;}
+	</style>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://tablesorter.com/jquery.tablesorter.min.js"></script>
+	<script type="text/javascript" src="../src/wowHeroes.js"></script>
+
+	<script type="text/javascript">
+	jQuery(function($){
+		var widget = $("#widget"),
+		throbber = $('<img src="throbber.gif" alt="Loading..." width="54" height="55" />').appendTo(widget);
+		wowHeroes.getGuild("eu", "outland", "Mysth", function(characters){
+			throbber.remove();
+
+			if(characters){
+				widget.append("<table><thead><tr><th>C</th><th>Name</th><th>Score</th></tr></thead><tbody></tbody></table>");
+				var tbody = widget.find('tbody');
+				$.each(characters, function(i, c){
+					tbody.append("<tr><td><img src=\"classicons/"+c.classId+".gif\" alt=\""+c.classId+"\" width=\"18\" height=\"18\"/></td><td>"+
+						"<a class=\"class_"+c.classId+"\" href=\"http://wow-heroes.com/index.php?zone=eu&server=Outland&name="+escape(c.name)+"\">"+c.name+"</a>"+
+						"</td><td>"+c.score+"</td></tr>");
+				});
+				widget.find('table').tablesorter();
+			}
+		});
+	});
+	</script>
+  </head>
+  <body>
+  	<div id="source">
+  	<pre>jQuery(function($){
+	var widget = $("#widget"),
+	throbber = $('&lt;img src="throbber.gif" alt="Loading..." width="54" height="55" /&gt;').appendTo(widget);
+	wowHeroes.getGuild("eu", "outland", "Mysth", function(characters){
+		throbber.remove();
+
+		if(characters){
+			widget.append("&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;C&lt;/th&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Score&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;/tbody&gt;&lt;/table&gt;");
+			var tbody = widget.find('tbody');
+			$.each(characters, function(i, c){
+				tbody.append("&lt;tr&gt;&lt;td&gt;&lt;img src=\"classicons/"+c.classId+".gif\" alt=\""+c.classId+"\" width=\"18\" height=\"18\"/&gt;&lt;/td&gt;&lt;td&gt;"+
+					"&lt;a class=\"class_"+c.classId+"\" href=\"http://wow-heroes.com/index.php?zone=eu&server=Outland&name="+escape(c.name)+"\"&gt;"+c.name+"&lt;/a&gt;"+
+					"&lt;/td&gt;&lt;td&gt;"+c.score+"&lt;/td&gt;&lt;/tr&gt;");
+			});
+			widget.find('table').tablesorter();
+		}
+	});
+});
+	</pre>
+  	</div>
+	<div id="widget"></div>
+  </body>
+</html>
