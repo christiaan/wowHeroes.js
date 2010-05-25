@@ -1,8 +1,9 @@
 var wowHeroes = {
 	yql : "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D'http%3A%2F%2Fxml.wow-heroes.com%2Fxml-guild.php%3Fz%3D{Zone}%26r%3D{Realm}%26g%3D{Guild}'&format=json&callback={Callback}",
 	getGuildUrl : function(zone, realm, guild, callback) {
-		realm = realm.replace(/ /g, "+");
-		guild = guild.replace(/ /g, "+");
+		zone = zone.replace(/ /g, "+").replace(/'/g, "%27");
+		realm = realm.replace(/ /g, "+").replace(/'/g, "%27");
+		guild = guild.replace(/ /g, "+").replace(/'/g, "%27");
 		return this.yql.
 			replace("{Zone}", encodeURIComponent(zone.toLowerCase())).
 			replace("{Realm}", encodeURIComponent(realm)).
